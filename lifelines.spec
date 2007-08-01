@@ -1,6 +1,6 @@
 %define name lifelines
-%define version 3.0.50
-%define release %mkrel 2
+%define version 3.0.60
+%define release %mkrel 1
 %define summary  A terminal based genealogy program
 
 Summary: %{summary}
@@ -46,9 +46,7 @@ rm -f %buildroot/%_libdir/libarch.a
 %files -f %name.lang
 %defattr(-,root,root)
 %doc README* ChangeLog NEWS AUTHORS LICENSE docs/*.txt docs/*.pdf docs/*.html
-%{_mandir}/man1/llines.1*
-%{_mandir}/man1/btedit.1*
-%{_mandir}/man1/dbverify.1*
+%{_mandir}/man1/*
 %{_bindir}/btedit
 %{_bindir}/llines 
 %{_bindir}/llexec
