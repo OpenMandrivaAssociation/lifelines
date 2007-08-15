@@ -1,7 +1,8 @@
 %define name lifelines
-%define version 3.0.60
+%define version 3.0.61
 %define release %mkrel 1
 %define summary  A terminal based genealogy program
+%define fversion %version-2
 
 Summary: %{summary}
 Name: %{name}
@@ -9,7 +10,7 @@ Version: %{version}
 Release: %{release}
 License: MIT
 Group:  Databases 
-Source:         http://prdownloads.sourceforge.net/lifelines/%{name}-%{version}.tar.bz2
+Source:         http://prdownloads.sourceforge.net/lifelines/%{name}-%{fversion}.tar.bz2
 URL:            http://lifelines.sourceforge.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires: libncurses-devel openjade >= 1.3.2-2mdk
