@@ -1,8 +1,8 @@
 %define name lifelines
-%define version 3.0.61
+%define version 3.0.62
 %define release %mkrel 1
 %define summary  A terminal based genealogy program
-%define fversion %version-2
+%define fversion %version
 
 Summary: %{summary}
 Name: %{name}
