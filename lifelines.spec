@@ -12,7 +12,6 @@ License: MIT
 Group:  Databases 
 Source:         http://prdownloads.sourceforge.net/lifelines/%{name}-%{fversion}.tar.bz2
 URL:            http://lifelines.sourceforge.net/
-BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires: libncurses-devel openjade >= 1.3.2-2mdk
 BuildRequires: bison
 
