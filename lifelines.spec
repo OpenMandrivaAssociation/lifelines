@@ -1,6 +1,6 @@
 %define name lifelines
 %define version 3.0.62
-%define release %mkrel 4
+%define release %mkrel 5
 %define summary  A terminal based genealogy program
 %define fversion %version
 
@@ -14,7 +14,7 @@ Source:         http://prdownloads.sourceforge.net/lifelines/%{name}-%{fversion}
 Patch: lifelines-3.0.62-format-strings.patch
 URL:            http://lifelines.sourceforge.net/
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot
-BuildRequires: libncurses-devel openjade >= 1.3.2-2mdk
+BuildRequires: libncursesw-devel openjade >= 1.3.2-2mdk
 BuildRequires: bison
 
 %description
