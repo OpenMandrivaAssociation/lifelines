@@ -1,0 +1,178 @@
+diff -p -up lifelines-3.0.62/src/interp/builtin.c~ lifelines-3.0.62/src/interp/builtin.c
+--- lifelines-3.0.62/src/interp/builtin.c~	2007-04-20 03:00:41.000000000 +0200
++++ lifelines-3.0.62/src/interp/builtin.c	2009-07-28 10:18:04.000000000 +0200
+@@ -1209,7 +1209,7 @@ llrpt_ord (PNODE node, SYMTAB stab, BOOL
+ 	if (i > 12)
+ 		sprintf(scratch, _("%ldth"), i);
+ 	else
+-		sprintf(scratch, _(ordinals[i - 1]));
++	  sprintf(scratch, "%s", _(ordinals[i - 1]));
+ 	return create_pvalue_from_string(scratch);
+ }
+ /*==================================================+
+@@ -1237,7 +1237,7 @@ llrpt_card (PNODE node, SYMTAB stab, BOO
+ 	if (i < 0 || i > 12)
+ 		sprintf(scratch, "%ld", i);
+ 	else
+-		sprintf(scratch, _(cardinals[i]));
++	  sprintf(scratch, "%s", _(cardinals[i]));
+ 	return create_pvalue_from_string(scratch);
+ }
+ /*==========================================+
+diff -p -up lifelines-3.0.62/src/interp/progerr.c~ lifelines-3.0.62/src/interp/progerr.c
+--- lifelines-3.0.62/src/interp/progerr.c~	2007-05-06 20:47:43.000000000 +0200
++++ lifelines-3.0.62/src/interp/progerr.c	2009-07-28 10:18:47.000000000 +0200
+@@ -372,7 +372,7 @@ vprog_error (PNODE node, STRING fmt, va_
+ 				get_current_lldate(&creation);
+ 				fprintf(fp, "\n%s\n", creation.datestr);
+ 			}
+-			fprintf(fp, zs_str(zstr));
++			fprintf(fp, "%s", zs_str(zstr));
+ 			fprintf(fp, "\n");
+ 			fclose(fp);
+ 		}
+diff -p -up lifelines-3.0.62/src/liflines/cscurses.c~ lifelines-3.0.62/src/liflines/cscurses.c
+--- lifelines-3.0.62/src/liflines/cscurses.c~	2007-10-06 02:12:51.000000000 +0200
++++ lifelines-3.0.62/src/liflines/cscurses.c	2009-07-28 10:21:33.000000000 +0200
+@@ -168,7 +168,7 @@ vccprintf (const char *fmt, va_list args
+ 	int rtn;
+ 	ZSTR zstr = zs_newvf(fmt, args);
+ 	int_to_disp(zstr);
+-	rtn = printf(zs_str(zstr));
++	rtn = printf("%s", zs_str(zstr));
+ 	zs_free(&zstr);
+ 	return rtn;
+ }
+diff -p -up lifelines-3.0.62/src/liflines/main.c~ lifelines-3.0.62/src/liflines/main.c
+--- lifelines-3.0.62/src/liflines/main.c~	2007-05-20 00:28:51.000000000 +0200
++++ lifelines-3.0.62/src/liflines/main.c	2009-07-28 10:22:07.000000000 +0200
+@@ -325,7 +325,7 @@ prompt_for_db:
+ 		if (!init_screen(errmsg, sizeof(errmsg)/sizeof(errmsg[0])))
+ 		{
+ 			endwin();
+-			fprintf(stderr, errmsg);
++			fprintf(stderr, "%s", errmsg);
+ 			goto finish;
+ 		}
+ 		set_screen_graphical(graphical);
+diff -p -up lifelines-3.0.62/src/liflines/miscutls.c~ lifelines-3.0.62/src/liflines/miscutls.c
+--- lifelines-3.0.62/src/liflines/miscutls.c~	2006-09-11 02:27:48.000000000 +0200
++++ lifelines-3.0.62/src/liflines/miscutls.c	2009-07-28 10:22:36.000000000 +0200
+@@ -98,7 +98,7 @@ void
+ show_database_stats (void)
+ {
+ 	char msg[80];
+-	snprintf(msg, sizeof(msg), _(qSdbrecords));
++	snprintf(msg, sizeof(msg), "%s", _(qSdbrecords));
+ 	strcat(msg, ": ");
+ 	snprintf(msg+strlen(msg), sizeof(msg)-strlen(msg)
+ 		, _(qSdbrecstats), num_indis(), num_fams()
+diff -p -up lifelines-3.0.62/src/stdlib/llabort.c~ lifelines-3.0.62/src/stdlib/llabort.c
+--- lifelines-3.0.62/src/stdlib/llabort.c~	2005-11-15 05:39:00.000000000 +0100
++++ lifelines-3.0.62/src/stdlib/llabort.c	2009-07-28 10:19:32.000000000 +0200
+@@ -39,8 +39,8 @@ ll_optional_abort (STRING msg)
+ {
+ 	INT ch;
+ 	if (msg)
+-		printf(msg);
+-	printf(_(qScoredump));
++		printf("%s", msg);
++	printf("%s", _(qScoredump));
+ 	fflush(stdout);
+ 
+ 	/* TODO: how do we i18n this ? This getchar assumes that 
+diff -p -up lifelines-3.0.62/src/stdlib/signals.c~ lifelines-3.0.62/src/stdlib/signals.c
+--- lifelines-3.0.62/src/stdlib/signals.c~	2005-11-15 05:39:00.000000000 +0100
++++ lifelines-3.0.62/src/stdlib/signals.c	2009-07-28 10:20:19.000000000 +0200
+@@ -149,7 +149,7 @@ on_signals (int sig)
+ 	/* TODO: Shouldn't we be logging this ? */
+ 	/* now print report msg if we had one */
+ 	if (zs_len(zstr))
+-		printf(zs_str(zstr));
++		printf("%s", zs_str(zstr));
+ 	zs_free(&zstr);
+ 	/* now build description of signal (# and name) */
+ 	/* name is not translated til sprint'd into msg */
+diff -p -up lifelines-3.0.62/src/stdlib/sprintpic.c~ lifelines-3.0.62/src/stdlib/sprintpic.c
+--- lifelines-3.0.62/src/stdlib/sprintpic.c~	2003-01-18 04:43:04.000000000 +0100
++++ lifelines-3.0.62/src/stdlib/sprintpic.c	2009-07-28 10:20:54.000000000 +0200
+@@ -60,7 +60,7 @@ printpic_arg (STRING *b, INT max, INT ut
+ void
+ sprintpic0 (STRING buffer, INT len, INT utf8, CNSTRING pic)
+ {
+-	if (len == snprintf(buffer, len, pic)) {
++	if (len == snprintf(buffer, len, "%s", pic)) {
+ 		/* overflowed -- back up to last character that fits */
+ 		INT width=0;
+ 		STRING prev = find_prev_char(&buffer[len-1], &width, buffer, utf8);
+diff -p -up lifelines-3.0.62/src/tools/btedit.c~ lifelines-3.0.62/src/tools/btedit.c
+--- lifelines-3.0.62/src/tools/btedit.c~	2007-05-14 16:41:01.000000000 +0200
++++ lifelines-3.0.62/src/tools/btedit.c	2009-07-28 10:25:36.000000000 +0200
+@@ -188,7 +188,7 @@ __fatal (STRING file, int line, CNSTRING
+ {
+ 	printf("FATAL ERROR: ");
+ 	if (details && details[0]) {
+-		printf(details);
++		printf("%s", details);
+ 		printf("\nAT: ");
+ 	}
+ 	printf("%s: line %d\n", file, line);
+diff -p -up lifelines-3.0.62/src/tools/dbverify.c~ lifelines-3.0.62/src/tools/dbverify.c
+--- lifelines-3.0.62/src/tools/dbverify.c~	2007-05-14 17:49:40.000000000 +0200
++++ lifelines-3.0.62/src/tools/dbverify.c	2009-07-28 10:26:49.000000000 +0200
+@@ -1414,7 +1414,7 @@ main (int argc, char **argv)
+ 	}
+ 
+ 	if (!init_lifelines_postdb()) {
+-		printf(_(qSbaddb));
++		printf("%s", _(qSbaddb));
+ 		goto done;
+ 	}
+ 	printf(_("Checking %s"), dbname);
+@@ -1505,7 +1505,7 @@ __fatal (STRING file, int line, CNSTRING
+ 
+ 	printf(_("FATAL ERROR: "));
+ 	if (details && details[0]) {
+-		printf(details);
++		printf("%s", details);
+ 	}
+ 	printf("\n");
+ 	printf(_("In file <%s> at line %d"), file, line);
+diff -p -up lifelines-3.0.62/src/ui/ui_cli.c~ lifelines-3.0.62/src/ui/ui_cli.c
+--- lifelines-3.0.62/src/ui/ui_cli.c~	2006-09-17 20:28:54.000000000 +0200
++++ lifelines-3.0.62/src/ui/ui_cli.c	2009-07-28 10:24:43.000000000 +0200
+@@ -68,7 +68,7 @@ llvwprintf (STRING fmt, va_list args)
+ void
+ rpt_print (STRING str)
+ {
+-	printf(str);
++	printf("%s", str);
+ }
+ void
+ refresh_stdout (void)
+@@ -155,7 +155,7 @@ BOOLEAN
+ ask_for_string (CNSTRING ttl, CNSTRING prmpt, STRING buffer, INT buflen)
+ {
+ 	outputln(ttl);
+-	printf(prmpt);
++	printf("%s", prmpt);
+ 	fgets(buffer, buflen, stdin);
+ 	chomp(buffer);
+ 	return strlen(buffer)>0;
+@@ -365,14 +365,14 @@ invoke_search_menu (void)
+ static void
+ outputln (const char * txt)
+ {
+-	printf(txt);
++	printf("%s", txt);
+ 	printf("\n");
+ }
+ /* send string to output */
+ static void
+ output (const char * txt)
+ {
+-	printf(txt);
++	printf("%s", txt);
+ }
+ static INT
+ interact (CNSTRING ptrn)
