@@ -1,7 +1,7 @@
 Summary:	A terminal based genealogy program
 Name:		lifelines
 Version:	3.0.62
-Release:	8
+Release:	9
 License:	MIT
 Group:		Databases 
 URL:		http://lifelines.sourceforge.net/
