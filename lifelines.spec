@@ -4,7 +4,7 @@ Version:	3.0.62
 Release:	9
 License:	MIT
 Group:		Databases 
-URL:		http://lifelines.sourceforge.net/
+URL:		https://lifelines.sourceforge.net/
 Source:		http://prdownloads.sourceforge.net/lifelines/%{name}-%{version}.tar.bz2
 Patch0:		lifelines-3.0.62-format-strings.patch
 BuildRequires:	pkgconfig(ncursesw)
