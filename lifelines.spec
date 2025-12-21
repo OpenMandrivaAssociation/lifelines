@@ -7,6 +7,11 @@ Group:		Databases
 URL:		https://lifelines.sourceforge.net/
 Source:		http://prdownloads.sourceforge.net/lifelines/%{name}-%{version}.tar.bz2
 Patch0:		lifelines-3.0.62-format-strings.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(ncursesw)
 BuildRequires:	openjade
 BuildRequires:	bison
